@@ -18,27 +18,27 @@ export default class Main extends Component {
       loading: true
     })
     // 发ajax请求进行搜索获取users数据
+    this.ajaxUsers(searchName)
+  }
+
+  async ajaxUsers(searchName) {
     const url = `http://api.github.com/search/users?q=${searchName}`
-    axios.get(url)
-      .then(response => {
-        // 成功, 更新状态(成功的)
-        const users = response.data.items.map(item => ({  // 需要用小括号将对象的{}包含起来
+    try {
+      const usersData = await axios.get(url)
+      const users = usersData.data.items.map(item => {
+        return {
           url: item.html_url,
           header_url: item.avatar_url,
           name: item.login
-        }))
-        this.setState({
-          loading: false,
-          users
-        })
+        }
       })
-      .catch(error => {
-        // 失败, 更新状态(失败的)
-        this.setState({
-          loading: false,
-          errorMsg: '请求失败!!!'
-        })
+      this.setState({
+        loading: false,
+        users
       })
+    } catch (err) {
+      console.log('err')
+    }
   }
 
   render () {
@@ -54,9 +54,9 @@ export default class Main extends Component {
         <div className="row">
           {
             users.map((user, index) =>(
-              <div className="card">
-                <a href={user.url} target="_blank">
-                  <img src={user.header_url} style={{width: 100}}/>
+              <div className="card" key={index}>
+                <a href={user.url}>
+                  <img src={user.header_url} style={{width: 100}} alt={user.url}/>
                 </a>
                 <p className="card-text">{user.name}</p>
               </div>

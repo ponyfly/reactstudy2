@@ -1,0 +1,4 @@
+.add__container{padding: 10px;background-color: #cbcbcb;}
+.add__container input{ width: 300px;height: 30px;border: 1px solid #0e80d2;border-radius: 6px;}
+.add__container textarea{display: block;margin-top: 10px;border-radius: 6px;width: 100%;font-size: 20px;height: 100px;}
+.add__container button{padding: 6px;font-size: 20px;border-radius: 2px;margin-top: 10px;}

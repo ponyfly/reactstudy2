@@ -3,66 +3,44 @@
  */
 import React, {Component} from 'react'
 
-
-export default class App extends Component {
-
+class App extends Component {
   state = {
-    count: 0
+    counter: 0
   }
-
-  increment = () => {
-    const number = this.refs.number.value*1
-    const count = this.state.count + number
-    this.setState({
-      count
-    })
-  }
-
-  decrement = () => {
-    const number = this.refs.number.value*1
-    const count = this.state.count - number
-    this.setState({
-      count
-    })
-  }
-
-  incrementIfOdd = () => {
-    const number = this.refs.number.value*1
-
-    if(this.state.count%2===1) {
-      const count = this.state.count + number
-      this.setState({
-        count
-      })
+  calculator(type) {
+    let { counter } = this.state
+    switch (type) {
+      case '+' :
+        counter++
+        break
+      case '-' :
+        counter --
+        break
+      default:
+        console.log('未定义指令')
     }
-
+    this.setState({ counter })
   }
-
-  incrementAsync = () => {
+  caculatorIfOdd(type) {
+    if (this.state.counter % 2 === 0) return
+    this.calculator(type)
+  }
+  caculatorAsync(type) {
     setTimeout(() => {
-      const number = this.refs.number.value*1
-      const count = this.state.count + number
-      this.setState({
-        count
-      })
-    }, 1000)
+      this.calculator(type)
+    }, 3000)
   }
-
   render() {
-    const {count} = this.state
     return (
-      <div>
-        <p>click {count} times</p>
-        <select ref='number'>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select> &nbsp;
-        <button onClick={this.increment}>+</button>&nbsp;
-        <button onClick={this.decrement}>-</button>&nbsp;
-        <button onClick={this.incrementIfOdd}>increment if odd</button>&nbsp;
-        <button onClick={this.incrementAsync}>increment async</button>
+      <div className='counter__container'>
+        <div>{this.state.counter}</div>
+        <div onClick={ this.calculator.bind(this, '+') }>+</div>
+        <div onClick={ this.calculator.bind(this, '-') }>-</div>
+        <div onClick={ this.caculatorIfOdd.bind(this, '+') }>caculatorIfOdd +</div>
+        <div onClick={ this.caculatorAsync.bind(this, '+') }>caculatorAsync +</div>
       </div>
     )
   }
 }
+
+export default App

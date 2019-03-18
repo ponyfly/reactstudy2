@@ -1,25 +1,35 @@
 import React, {Component} from 'react'
-export default class Search extends Component {
+import PropTypes from 'prop-types'
 
-  search = () => {
-    const searchName = this.refs.searchName.value.trim()
-    if(searchName) {
-      this.props.setSearchName(searchName)
-
-      this.refs.searchName.value = ''
-    }
-
+class Search extends Component {
+  constructor(props){
+    super(props)
+    this.searchRef = React.createRef()
+    this.search = this.search.bind(this)
   }
 
-  render () {
+  search() {
+    const val = this.searchRef.current.value.trim()
+    if(val) {
+      this.props.setSearchName(val)
+      this.searchRef.current.value = ''
+    }
+  }
+  render() {
     return (
-      <section className="jumbotron">
-        <h3 className="jumbotron-heading">Search Github Users</h3>
+      <section className='jumbotron'>
+        <h3 className='jumbotron-heading'>Search Github Users</h3>
         <div>
-          <input type="text" placeholder="enter the name you search" ref='searchName'/>
+          <input type="text" placeholder='输入名字' ref={this.searchRef}/>
           <button onClick={this.search}>Search</button>
         </div>
       </section>
     )
   }
 }
+
+Search.propTypes = {
+  setSearchName: PropTypes.func.isRequired
+}
+
+export default Search

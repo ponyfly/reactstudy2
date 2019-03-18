@@ -22,30 +22,28 @@ export default class Main extends Component {
         loading: true
       })
       // 发ajax请求进行搜索获取users数据
-      const url = `http://api.github.com/search/users?q=${searchName}`
-      axios.get(url)
-        .then(response => {
-          // 成功, 更新状态(成功的)
-          const users = response.data.items.map(item => ({  // 需要用小括号将对象的{}包含起来
-            url: item.html_url,
-            header_url: item.avatar_url,
-            name: item.login
-          }))
-          this.setState({
-            loading: false,
-            users
-          })
-        })
-        .catch(error => {
-          // 失败, 更新状态(失败的)
-          this.setState({
-            loading: false,
-            errorMsg: '请求失败!!!'
-          })
-        })
+      this.ajaxUsers(searchName)
     })
   }
-
+  async ajaxUsers(searchName) {
+    const url = `http://api.github.com/search/users?q=${searchName}`
+    try {
+      const usersData = await axios.get(url)
+      const users = usersData.data.items.map(item => {
+        return {
+          url: item.html_url,
+          header_url: item.avatar_url,
+          name: item.login
+        }
+      })
+      this.setState({
+        loading: false,
+        users
+      })
+    } catch (err) {
+      console.log('err')
+    }
+  }
   render () {
     const {firstView, loading, users, errorMsg} = this.state
     if(firstView) {

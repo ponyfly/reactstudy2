@@ -1,0 +1,4 @@
+li {margin-bottom:20px;padding: 10px;background-color: #fca;border-radius: 20px}
+li>div:nth-child(1){font-size: 20px;color: #6f6473;}
+li>div:nth-child(2){font-size: 30px;padding-left: 16px;}
+li button{padding: 6px;border-radius: 6px;float: right;}
