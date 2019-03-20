@@ -3,7 +3,7 @@ const {
   fixBabelImports
 }  = require('customize-cra')
 
-const entrySrc = 'src-router2'
+const entrySrc = 'src-result2'
 
 module.exports = {
   webpack: override(

@@ -2,7 +2,7 @@
 应用根组件
  */
 import React, {Component} from 'react'
-import {NavLink, Route, Switch, Redirect} from 'react-router-dom'
+import { Route, Switch, Redirect, Link } from 'react-router-dom'
 
 import About from './views/About'
 import Home from './views/Home'
@@ -13,6 +13,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Link to='/my'/>
         <div className="row">
           <div className="col-xs-offset-2 col-xs-8">
             <div className="page-header"><h2>React Router Demo</h2></div>
@@ -30,15 +31,12 @@ export default class App extends Component {
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
-                <Route path='/about' exact component={About}/>
-                <Route path='/home' exact component={Home}/>
-                {/*<Redirect to='/about' exact/>*/}
                 {/*路由组件显示*/}
-                {/*<Switch>*/}
-                  {/*<Route path='/about' component={About}/>*/}
-                  {/*<Route path='/home' component={Home}/>*/}
-                  {/*<Redirect to='/about'/>*/}
-                {/*</Switch>*/}
+                <Switch>
+                  <Route path='/about' component={About}></Route>
+                  <Route path='/home' component={Home}></Route>
+                  <Redirect to='/home'></Redirect>
+                </Switch>
               </div>
             </div>
           </div>

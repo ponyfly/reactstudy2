@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
-export default class About extends Component {
-  render () {
+
+class About extends Component {
+  render() {
     return (
-      <div>About</div>
+      <h1>
+        i am about
+      </h1>
     )
   }
 }
+
+export default About

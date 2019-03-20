@@ -179,6 +179,11 @@
             props.match对象
             props.location对象
             withRouter函数
+注意：browserHistory 是使用 React-Router 的应用推荐的 history方案。它使用浏览器中的 History API 用于处理 URL，创建一个像example.com/list/123这样真实的 URL 。
+在browserHistory 模式下，URL 是指向真实 URL 的资源路径，当通过真实 URL 访问网站的时候，由于路径是指向服务器的真实路径，但该路径下并没有相关资源，所以用户访问的资源不存在。
+解决办法：
+1. 使用hashHistory
+2. 服务器需要进行相关路由配置，其本质的原理就是利用服务端将任何请求都指向index.html，而在React应用中index.html又刚好通过React-Router配置了相应的路由，我们让服务器返回index.html，后面就交给前端路由来实现无刷新加载对应页面。
             
     2. 基本使用
         1). 定义路由组件

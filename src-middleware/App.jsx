@@ -7,6 +7,12 @@ import {increment, decrement} from './redux/actions'
 // import * as actions from './redux/actions'
 
 
+function dispatchAndLog(store, action) {
+  console.log('dispatching: ', action)
+  store.dispatch(action)
+  console.log('next state', store.getState())
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -25,6 +31,7 @@ export default class App extends Component {
   increment() {
     const num = +this.selectRef.current.value
     this.props.store.dispatch(increment(num))
+    // dispatchAndLog(this.props.store, increment(num))
   }
 
   decrement() {

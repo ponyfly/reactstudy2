@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {increment, decrement} from './redux/actions'
 // import * as actions from './redux/actions'
 
 
@@ -16,38 +15,37 @@ export default class App extends Component {
     this.incrementIfOdd = this.incrementIfOdd.bind(this)
     this.incrementAsync = this.incrementAsync.bind(this)
   }
-
+  
   static propTypes = {
-    store: PropTypes.object.isRequired
-    // store.getState()
-    // store.dispatch(action)
+    counter: PropTypes.number.isRequired,
+    increment: PropTypes.func.isRequired,
+    decrement: PropTypes.func.isRequired,
+    incrementAsync: PropTypes.func.isRequired
   }
   increment() {
     const num = +this.selectRef.current.value
-    this.props.store.dispatch(increment(num))
+    this.props.increment(num)
   }
 
   decrement() {
     const num = +this.selectRef.current.value
-    this.props.store.dispatch(decrement(num))
+    this.props.decrement(num)
   }
 
   incrementIfOdd() {
     const num = +this.selectRef.current.value
-    if(this.props.store.getState() % 2 === 1) {
-      this.props.store.dispatch(increment(num))
+    if(this.props.counter % 2 === 1) {
+      this.props.increment(num)
     }
   }
 
   incrementAsync() {
-    setTimeout(() => {
-      const num = +this.selectRef.current.value
-      this.props.store.dispatch(increment(num))
-    }, 1000)
+    const num = +this.selectRef.current.value
+    this.props.incrementAsync(num)
   }
 
   render() {
-    const counter = this.props.store.getState()
+    const counter = this.props.counter
     return (
       <div>
         <p>click {counter} times</p>
